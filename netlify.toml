@@ -18,13 +18,3 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
-
-[functions]
-  # pdf-parse (via pdfjs-dist) loads its worker file through a dynamically
-  # constructed path, which neither webpack nor Next.js's own file tracer can
-  # follow statically. Next's outputFileTracingIncludes alone wasn't enough -
-  # Netlify packages serverless functions with its own separate bundler
-  # (zip-it-and-ship-it) that doesn't read Next's trace manifests, so the
-  # worker file still got dropped from the deployed function and crashed
-  # every PDF upload. This forces Netlify's own packaging step to include it.
-  included_files = ["node_modules/pdf-parse/**", "node_modules/pdf-parse/node_modules/pdfjs-dist/**"]
