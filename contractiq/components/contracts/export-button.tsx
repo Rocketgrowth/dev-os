@@ -16,26 +16,8 @@ import {
   exportAsCSV,
   exportAsText,
 } from '@/lib/export'
-
-interface KeyTerm {
-  id: string
-  term_name: string
-  value: string | null
-  page_number: number | null
-  confidence_score: number
-  source_sentence: string | null
-  is_manual: boolean
-  is_edited: boolean
-  original_value: string | null
-}
-
-interface Contract {
-  id: string
-  name: string
-  type: string
-  page_count: number | null
-  created_at: string
-}
+import { KeyTerm } from '@/types/key-term'
+import { Contract } from '@/types/contract'
 
 interface ExportButtonProps {
   contract: Contract

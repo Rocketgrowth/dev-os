@@ -2,17 +2,20 @@
  * Export utilities for contract analysis results
  */
 
-interface KeyTerm {
-  id: string
-  term_name: string
-  value: string | null
-  page_number: number | null
-  confidence_score: number
-  source_sentence: string | null
-  is_manual: boolean
-  is_edited: boolean
-  original_value: string | null
-}
+import { KeyTerm } from '@/types/key-term'
+
+type ExportKeyTerm = Pick<
+  KeyTerm,
+  | 'id'
+  | 'term_name'
+  | 'value'
+  | 'page_number'
+  | 'confidence_score'
+  | 'source_sentence'
+  | 'is_manual'
+  | 'is_edited'
+  | 'original_value'
+>
 
 interface ContractExportData {
   contract: {
@@ -22,7 +25,7 @@ interface ContractExportData {
     page_count: number | null
     created_at: string
   }
-  terms: KeyTerm[]
+  terms: ExportKeyTerm[]
   exportedAt: string
 }
 
@@ -90,7 +93,7 @@ export function exportAsCSV(data: ContractExportData, filename: string): void {
     escapeCSV(term.term_name),
     escapeCSV(term.value || ''),
     term.page_number?.toString() || '',
-    `${Math.round(term.confidence_score * 100)}%`,
+    `${Math.round((term.confidence_score ?? 0) * 100)}%`,
     escapeCSV(term.source_sentence || ''),
     term.is_manual ? 'Yes' : 'No',
     term.is_edited ? 'Yes' : 'No',
@@ -139,7 +142,7 @@ export function exportAsText(data: ContractExportData, filename: string): void {
   ]
 
   data.terms.forEach((term) => {
-    const confidence = Math.round(term.confidence_score * 100)
+    const confidence = Math.round((term.confidence_score ?? 0) * 100)
     const badges = []
     if (term.is_manual) badges.push('[Custom]')
     if (term.is_edited) badges.push('[Edited]')
