@@ -1,6 +1,7 @@
 [build]
   base = "contractiq"
   command = "npm run build"
+  publish = ".next"
 
 [build.environment]
   # These are plain config values, not secrets - their values (e.g. "gpt-4o", "10",
@@ -14,3 +15,6 @@
   # faster rebuilds. That cache is never served to users - it's build-internal -
   # so scanning it for secrets is a false positive. Exclude it.
   SECRETS_SCAN_OMIT_PATHS = ".next/cache/**"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
