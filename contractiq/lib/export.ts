@@ -7,7 +7,7 @@ interface KeyTerm {
   term_name: string
   value: string | null
   page_number: number | null
-  confidence_score: number
+  confidence_score: number | null
   source_sentence: string | null
   is_manual: boolean
   is_edited: boolean
@@ -90,7 +90,9 @@ export function exportAsCSV(data: ContractExportData, filename: string): void {
     escapeCSV(term.term_name),
     escapeCSV(term.value || ''),
     term.page_number?.toString() || '',
-    `${Math.round(term.confidence_score * 100)}%`,
+    term.confidence_score !== null
+      ? `${Math.round(term.confidence_score * 100)}%`
+      : '',
     escapeCSV(term.source_sentence || ''),
     term.is_manual ? 'Yes' : 'No',
     term.is_edited ? 'Yes' : 'No',
@@ -139,14 +141,17 @@ export function exportAsText(data: ContractExportData, filename: string): void {
   ]
 
   data.terms.forEach((term) => {
-    const confidence = Math.round(term.confidence_score * 100)
+    const confidence =
+      term.confidence_score !== null
+        ? `${Math.round(term.confidence_score * 100)}%`
+        : 'N/A'
     const badges = []
     if (term.is_manual) badges.push('[Custom]')
     if (term.is_edited) badges.push('[Edited]')
 
     lines.push(`${term.term_name} ${badges.join(' ')}`)
     lines.push(`  Value: ${term.value || 'Not found'}`)
-    lines.push(`  Confidence: ${confidence}%`)
+    lines.push(`  Confidence: ${confidence}`)
     if (term.page_number) {
       lines.push(`  Page: ${term.page_number}`)
     }
