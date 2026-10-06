@@ -8,3 +8,9 @@
   # floods Netlify's secrets scanner with false positives and fails the build.
   # The real secrets (OPENAI_API_KEY, SUPABASE_SERVICE_ROLE_KEY) stay scanned.
   SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY,NEXT_PUBLIC_APP_URL,NEXT_PUBLIC_ENABLE_PDF_VIEWER,OPENAI_MODEL,OPENAI_EXTRACTION_TEMPERATURE,OPENAI_CHAT_TEMPERATURE,OPENAI_MAX_RETRIES,RATE_LIMIT_AI_REQUESTS_PER_MINUTE,RATE_LIMIT_UPLOAD_REQUESTS_PER_MINUTE,MAX_FILE_SIZE_MB,MAX_PAGE_COUNT,MIN_EXTRACTED_WORDS,MAX_CHAT_HISTORY"
+
+  # Next.js embeds resolved server-only env var values (e.g. OPENAI_API_KEY,
+  # SUPABASE_SERVICE_ROLE_KEY) into its own incremental webpack build cache for
+  # faster rebuilds. That cache is never served to users - it's build-internal -
+  # so scanning it for secrets is a false positive. Exclude it.
+  SECRETS_SCAN_OMIT_PATHS = ".next/cache/**"
