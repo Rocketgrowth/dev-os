@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * allNeurons Design System
+ * Primary Blue: #115ACB | Grey: #070A0E-#FAFAFA | Green: #13A10E | Red: #D13438 | Yellow: #FFAA33
+ */
+
+@layer base {
+  :root {
+    /* Background & Foreground */
+    --background: 0 0% 100%;
+    --foreground: 214 35% 3%;
+
+    /* Card */
+    --card: 0 0% 100%;
+    --card-foreground: 214 35% 3%;
+
+    /* Popover */
+    --popover: 0 0% 100%;
+    --popover-foreground: 214 35% 3%;
+
+    /* Primary - Blue 500 (#115ACB) */
+    --primary: 215 84% 43%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Grey 50 (#F0F0F1) */
+    --secondary: 240 3% 95%;
+    --secondary-foreground: 214 35% 3%;
+
+    /* Muted - Grey 25 (#FAFAFA) */
+    --muted: 0 0% 98%;
+    --muted-foreground: 216 3% 30%;
+
+    /* Accent - Violet 500 (#7F00FF) */
+    --accent: 270 100% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Destructive - Red 500 (#D13438) */
+    --destructive: 358 63% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Success - Green 500 (#13A10E) */
+    --success: 118 83% 34%;
+    --success-foreground: 0 0% 100%;
+
+    /* Warning - Yellow 500 (#FFAA33) */
+    --warning: 35 100% 60%;
+    --warning-foreground: 214 35% 3%;
+
+    /* Border - Grey 100 (#DADADB) */
+    --border: 240 2% 86%;
+
+    /* Input - Grey 100 (#DADADB) */
+    --input: 240 2% 86%;
+
+    /* Ring - Primary Blue */
+    --ring: 215 84% 43%;
+
+    /* Border Radius - 6px default */
+    --radius: 0.375rem;
+  }
+
+  .dark {
+    /* Background - Grey 900 (#070A0E) */
+    --background: 214 35% 3%;
+    --foreground: 0 0% 98%;
+
+    /* Card - Grey 800 (#151719) */
+    --card: 216 8% 9%;
+    --card-foreground: 0 0% 98%;
+
+    /* Popover */
+    --popover: 216 8% 9%;
+    --popover-foreground: 0 0% 98%;
+
+    /* Primary - Blue 400 (#89B7FF) */
+    --primary: 216 100% 77%;
+    --primary-foreground: 214 35% 3%;
+
+    /* Secondary - Grey 700 (#25272B) */
+    --secondary: 220 6% 16%;
+    --secondary-foreground: 0 0% 98%;
+
+    /* Muted - Grey 800 (#151719) */
+    --muted: 216 8% 9%;
+    --muted-foreground: 216 2% 57%;
+
+    /* Accent - Violet 400 (#B870FF) */
+    --accent: 270 100% 72%;
+    --accent-foreground: 214 35% 3%;
+
+    /* Destructive - Red 600 (#BE2F33) */
+    --destructive: 358 60% 47%;
+    --destructive-foreground: 0 0% 98%;
+
+    /* Success - Green 400 (#42B43E) */
+    --success: 118 49% 47%;
+    --success-foreground: 214 35% 3%;
+
+    /* Warning - Yellow 400 (#FFC16B) */
+    --warning: 35 100% 71%;
+    --warning-foreground: 214 35% 3%;
+
+    /* Border - Grey 600 (#2C2F32) */
+    --border: 213 6% 18%;
+
+    /* Input */
+    --input: 213 6% 18%;
+
+    /* Ring */
+    --ring: 216 100% 77%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
