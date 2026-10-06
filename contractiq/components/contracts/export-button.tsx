@@ -22,7 +22,7 @@ interface KeyTerm {
   term_name: string
   value: string | null
   page_number: number | null
-  confidence_score: number
+  confidence_score: number | null
   source_sentence: string | null
   is_manual: boolean
   is_edited: boolean
