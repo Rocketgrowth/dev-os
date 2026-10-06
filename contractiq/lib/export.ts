@@ -7,7 +7,7 @@ interface KeyTerm {
   term_name: string
   value: string | null
   page_number: number | null
-  confidence_score: number
+  confidence_score: number | null
   source_sentence: string | null
   is_manual: boolean
   is_edited: boolean
@@ -90,7 +90,7 @@ export function exportAsCSV(data: ContractExportData, filename: string): void {
     escapeCSV(term.term_name),
     escapeCSV(term.value || ''),
     term.page_number?.toString() || '',
-    `${Math.round(term.confidence_score * 100)}%`,
+    formatConfidence(term.confidence_score),
     escapeCSV(term.source_sentence || ''),
     term.is_manual ? 'Yes' : 'No',
     term.is_edited ? 'Yes' : 'No',
@@ -139,14 +139,14 @@ export function exportAsText(data: ContractExportData, filename: string): void {
   ]
 
   data.terms.forEach((term) => {
-    const confidence = Math.round(term.confidence_score * 100)
+    const confidence = formatConfidence(term.confidence_score)
     const badges = []
     if (term.is_manual) badges.push('[Custom]')
     if (term.is_edited) badges.push('[Edited]')
 
     lines.push(`${term.term_name} ${badges.join(' ')}`)
     lines.push(`  Value: ${term.value || 'Not found'}`)
-    lines.push(`  Confidence: ${confidence}%`)
+    lines.push(`  Confidence: ${confidence}`)
     if (term.page_number) {
       lines.push(`  Page: ${term.page_number}`)
     }
@@ -163,6 +163,13 @@ export function exportAsText(data: ContractExportData, filename: string): void {
   const textContent = lines.join('\n')
   const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8;' })
   downloadBlob(blob, `${filename}.txt`)
+}
+
+/**
+ * Format a confidence score (0-1) as a percentage, or N/A when missing
+ */
+function formatConfidence(score: number | null): string {
+  return score === null ? 'N/A' : `${Math.round(score * 100)}%`
 }
 
 /**
